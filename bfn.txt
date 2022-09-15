@@ -1,0 +1,31 @@
+https://inst.eecs.berkeley.edu/~cs164/sp18/python-grammar.html
+
+keyword ::= "and" | "or" | "not" |   # Get more as needed
+identifier ::= (letter|"_") { (letter | digit | "_") }
+integer ::= decimalinteger | hexinteger
+decimalinteger ::= nonzerodigit digit* | "0"
+string ::= '<character>{<character>}' | "<character>{<character>}"
+hexinteger ::=  "0" ("x" | "X") hexdigit+
+hexdigit ::= digit | "a"..."f" | "A"..."F"
+floatnumber ::= pointfloat | exponentfloat
+pointfloat ::= [intpart] fraction | intpart "."
+exponentfloat ::= (intpart | pointfloat) exponent
+intpart ::=  digit+
+fraction ::= "." digit+
+exponent ::= ("e" | "E") ["+" | "-"] digit+
+expression ::=  conditional_expression
+expression_list ::= expression ( "," expression )* [","]
+expression_stmt ::= expression_list
+conditional_expression ::= or_test ["if" or_test "else" expression]
+or_test ::= and_test | or_test "or" and_test
+and_test ::= not_test | and_test "and" not_test
+not_test ::= comparison | "not" 
+comparison ::= or_expr { comp_operator or_expr }
+comp_operator ::= "<" | ">" | "==" | ">=" | "<=" | "!=" | "is" ["not"] | ["not"] "in"
+
+and_expr ::= a_expr | and_expr "&" a_expr
+xor_expr ::= and_expr | xor_expr "^" and_expr
+or_expr ::= xor_expr | or_expr "|" xor_expr
+u_expr ::=  "-" u_expr | "+" u_expr 
+m_expr ::=  u_expr | m_expr "*" u_expr | m_expr "//" u_expr | m_expr "/" u_expr | m_expr "%" u_expr
+a_expr ::= m_expr | a_expr "+" m_expr| a_expr "-" m_expr
