@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS  = -g -Wall
 
-TARGET ?= a.out
+TARGET ?= main.out
 
 SRC_DIRS ?= ./src
 
@@ -20,5 +20,8 @@ $(TARGET): $(OBJS)
 .PHONY: clean
 clean:
 	$(RM) $(TARGET) $(OBJS) $(DEPS)
+
+run: $(TARGET)
+	./$(TARGET)
 
 -include $(DEPS)
