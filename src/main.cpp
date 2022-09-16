@@ -1,7 +1,7 @@
-#include "../include/Tokenizer.h"
+#include "../include/TokenizerTest.h"
 
-int main() {
-    Tokenizer tokenizer;
-    tokenizer.printTokenSecret();
+int main()
+{
+    TokenizerTest t("1+2*3",false);
     return 0;
 }
