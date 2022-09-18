@@ -5,7 +5,7 @@ TestCase::TestCase(string newName) {
 }
 
 bool TestCase::test() {
-    cout << "Test " << name << endl;
+    cout << "Test " << name << endl << endl;
     bool retval=doTest();
     cout << "End Test " << name;
     if (retval) cout << "->Passed" << endl;

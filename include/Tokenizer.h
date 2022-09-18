@@ -14,5 +14,12 @@ public:
     void setText(string newText="");
     Token next();
     Token peek();
-    void printTokenSecret();
+    void consumeSpaces();
+    bool isComment();
+    void consumeComments();
+    Token getString();
+    Token compOperator();
+    bool isKeyword();
+    Token intPart();
+    Token characterParser();
 };
