@@ -8,7 +8,7 @@ Tokenizer::Tokenizer() {
 }
 
 bool Tokenizer::error(string message) {
-		cerr << filename<<':'<<linepos<<':' << message << endl;	
+		//cerr << filename<<':'<<linepos<<':' << message << endl;	
 		return false;
 }
 

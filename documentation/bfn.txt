@@ -11,11 +11,13 @@ T hexinteger ::=  "0" ("x" | "X") hexdigit+
 T hexdigit ::= digit | "a"..."f" | "A"..."F"
 T E ::= "e" | "E"
 
+P fraction ::= DOT intpart
+P <variable> ::= <letter > {<letter or digit>}
+P pointfloat ::= {intpart} fraction | {intpart} DOT
+
 integer ::= floatnumber | hexinteger
 floatnumber ::= pointfloat | exponentfloat
-pointfloat ::= intpart fraction | intpart DOT
 exponentfloat ::= (intpart | pointfloat) exponent
-fraction ::= DOT intpart
 exponent ::= E a_operator intpart
 
 expression ::=  conditional_expression
