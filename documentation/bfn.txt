@@ -14,11 +14,12 @@ T E ::= "e" | "E"
 P fraction ::= DOT intpart
 P <variable> ::= <letter > {<letter or digit>}
 P pointfloat ::= {intpart} fraction | {intpart} DOT
+P exponent ::= E a_operator intpart
 
 integer ::= floatnumber | hexinteger
 floatnumber ::= pointfloat | exponentfloat
 exponentfloat ::= (intpart | pointfloat) exponent
-exponent ::= E a_operator intpart
+
 
 expression ::=  conditional_expression
 expression_list ::= expression ( "," expression )* [","]

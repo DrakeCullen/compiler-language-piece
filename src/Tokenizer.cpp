@@ -118,7 +118,7 @@ Token Tokenizer::characterParser() {
     unsigned newpos=pos;
     while (newpos<text.size() && isalnum(text[newpos])) newpos++;
     string value=text.substr(pos,newpos-pos);
-    if (value=="E") return Token(E,value);
+    if (value=="E" || value=="e") return Token(E,value);
     if (value[0]=='0' && (value[1]=='x' || value[1]=='X')) {
         bool validHex = true;
         for (unsigned i=2;i<value.size();i++)  

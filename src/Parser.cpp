@@ -53,3 +53,22 @@ bool Parser::pointFloat(Tokenizer &t) {
     }
     return t.error("Expected integer part");
 }
+
+//exponent ::= E a_operator intpart
+bool Parser::exponent(Tokenizer &t) {
+    Token token = t.peek();
+    if (token.type == E) {
+        t.next();
+        token = t.peek();
+        if (token.type == A_OPERATOR) t.next();
+        else return t.error("Expected an arithmetic operator");
+        token = t.peek();
+        if (token.type == INTPART) {
+            t.next();
+            while (t.peek().type == INTPART) t.next();
+            return true;
+        }
+        return t.error("Expected integer part after exponent operator");
+    }
+    return t.error("Expected an exponent operator");
+}

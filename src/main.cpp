@@ -28,6 +28,9 @@ bool runTests() {
 	tests.push_back(new ParserTest("./tests/fractionTests/1.txt", 1, FRACTION_TEST));
 	tests.push_back(new ParserTest("./tests/fractionTests/2.txt", 4, FRACTION_TEST));
 	tests.push_back(new ParserTest("./tests/pointFloatTests/1.txt", 3, POINTFLOAT_TEST));
+	tests.push_back(new ParserTest("./tests/exponentTests/1.txt", 1, EXPONENT_TEST));
+	tests.push_back(new ParserTest("./tests/exponentTests/2.txt", 1, EXPONENT_TEST));
+	tests.push_back(new ParserTest("./tests/exponentTests/3.txt", 3, EXPONENT_TEST));
 	bool success=true;
 	for (auto test:tests)
 		if (!test->test()) success=false;

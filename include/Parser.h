@@ -11,4 +11,5 @@ class Parser {
 	bool variable(Tokenizer &t);
 	bool fraction(Tokenizer &t);
 	bool pointFloat(Tokenizer &t);
+	bool exponent(Tokenizer &t);
 };
