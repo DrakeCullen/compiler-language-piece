@@ -18,57 +18,45 @@ Tokenizer& Parser::getTokenizer() {
 }
 
 bool Parser::variable(Tokenizer &t) {
-    Token token = t.peek();
-    if (token.type == VARIABLE) {
-        t.next();
-        return true;
-    }
+    if (t.next().type == VARIABLE) return true;
     return t.error("Expected a variable");
 }
 
 bool Parser::fraction(Tokenizer &t) {
-    Token token = t.peek();
-    if (token.type == DOT) {
-        t.next();
-        token = t.peek();
-        if (token.type == INTPART) {
-            t.next();
-            while (t.peek().type == INTPART) t.next();
-            return true;
-        }
+    if (t.next().type == DOT) {
+        if (t.next().type == INTPART) return true;
         return t.error("Expected integer part after decimal point");
     }
     return t.error("Expected a decimal point");
 }
 
-// pointfloat ::= intpart fraction | intpart DOT
+// pointfloat ::= {intpart} fraction | {intpart} DOT
 bool Parser::pointFloat(Tokenizer &t) {
-    if (t.peek().type == INTPART) {
-        while (t.peek().type == INTPART) t.next();
+    if (t.next().type == INTPART) {
         Tokenizer temp = t;
-        temp.next();
-        if (fraction(temp)) return true;
-        if (t.peek().type == DOT) return true;
+        if (fraction(temp)) {t=temp; return true; }
+        if (t.next().type == DOT) return true;
         return t.error("Expected a decimal point or faction part after integer part");
     }
     return t.error("Expected integer part");
 }
 
-//exponent ::= E a_operator intpart
 bool Parser::exponent(Tokenizer &t) {
-    Token token = t.peek();
-    if (token.type == E) {
-        t.next();
-        token = t.peek();
-        if (token.type == A_OPERATOR) t.next();
-        else return t.error("Expected an arithmetic operator");
-        token = t.peek();
-        if (token.type == INTPART) {
-            t.next();
-            while (t.peek().type == INTPART) t.next();
-            return true;
-        }
+    if (t.next().type == E) {
+        if (t.next().type != A_OPERATOR) return t.error("Expected an arithmetic operator");
+        if (t.next().type == INTPART) return true;
         return t.error("Expected integer part after exponent operator");
     }
     return t.error("Expected an exponent operator");
+}
+
+//exponentfloat ::= (intpart | pointfloat) exponent
+bool Parser::exponentFloat(Tokenizer &t) {
+    Tokenizer temp = t;
+    if (pointFloat(temp)) {
+        t = temp;
+        return exponent(t);
+    }
+    if (t.next().type == INTPART) return exponent(t);
+    return t.error("Expected integer part or point float");
 }

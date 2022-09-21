@@ -15,10 +15,11 @@ P fraction ::= DOT intpart
 P <variable> ::= <letter > {<letter or digit>}
 P pointfloat ::= {intpart} fraction | {intpart} DOT
 P exponent ::= E a_operator intpart
+exponentfloat ::= (intpart | pointfloat) exponent
 
 integer ::= floatnumber | hexinteger
 floatnumber ::= pointfloat | exponentfloat
-exponentfloat ::= (intpart | pointfloat) exponent
+
 
 
 expression ::=  conditional_expression

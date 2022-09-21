@@ -56,7 +56,12 @@ Token Tokenizer::peek() {
         if (pos+1 < text.size() && text[pos] == '/' && text[pos+1]=='/') return Token(M_OPERATOR,text.substr(pos,2));
         else return Token(M_OPERATOR,text.substr(pos,1));
     if (c=='+' || c=='-') return Token(A_OPERATOR,text.substr(pos,1));
-    if (isalnum(c)) return characterParser();
+    if (isalpha(c)) return characterParser();
+    if (isdigit(c)) {
+        unsigned newpos=pos;
+        while(newpos<text.size() && isdigit(text[newpos])) newpos++;
+        return Token(INTPART,text.substr(pos,newpos-pos));
+    } 
     return Token(UNRECOGNIZED, "");
 }
 
@@ -118,6 +123,7 @@ Token Tokenizer::characterParser() {
     unsigned newpos=pos;
     while (newpos<text.size() && isalnum(text[newpos])) newpos++;
     string value=text.substr(pos,newpos-pos);
+    //if (all_of(value.begin(), value.end(), ::isdigit)) return Token(INTPART,value);
     if (value=="E" || value=="e") return Token(E,value);
     if (value[0]=='0' && (value[1]=='x' || value[1]=='X')) {
         bool validHex = true;
@@ -128,7 +134,6 @@ Token Tokenizer::characterParser() {
             }
         if (validHex) return Token(HEXDIGIT,value);
     } 
-    if (all_of(value.begin(), value.end(), ::isdigit)) return Token(INTPART,value);
     return Token(VARIABLE,value);
 }
 

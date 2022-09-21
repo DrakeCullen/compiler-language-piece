@@ -1,7 +1,7 @@
 #pragma once
 #include "TestCase.h"
 
-enum testType {VARIABLE_TEST,FRACTION_TEST, POINTFLOAT_TEST, EXPONENT_TEST};
+enum testType {VARIABLE_TEST,FRACTION_TEST, POINTFLOAT_TEST, EXPONENT_TEST, EXPONENT_FLOAT_TEST};
 
 class ParserTest:public TestCase {
 	private:
