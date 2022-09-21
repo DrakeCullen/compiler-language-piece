@@ -60,3 +60,34 @@ bool Parser::exponentFloat(Tokenizer &t) {
     if (t.next().type == INTPART) return exponent(t);
     return t.error("Expected integer part or point float");
 }
+
+//factor ::= integer | floatnumber | variable | "(" expression ")"
+bool Parser::factor(Tokenizer &t) {
+    Tokenizer temp = t;
+    /* if (integer(temp)) {
+        t = temp;
+        return true;
+    } */
+    /* if (floatNumber(temp)) {
+        t = temp;
+        return true;
+    } */
+    if (variable(temp)) {
+        t = temp;
+        return true;
+    }
+    // Add check for '(' expression ')'
+    return t.error("Expected integer, floatnumber, variable, or (expression)");
+}
+
+//m_expr ::=  factor m_operator m_expr 
+bool Parser::mExpression(Tokenizer &t) {
+    if (factor(t)) {
+        if (t.next().type == M_OPERATOR) {
+            if (mExpression(t)) return true;
+            return t.error("Expected a m_expression after m_operator");
+        }
+        return true;
+    }
+    return t.error("Expected a factor");
+}
