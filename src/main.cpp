@@ -35,6 +35,7 @@ bool runTests() {
 	tests.push_back(new ParserTest("./tests/exponentFloatTests/1.txt", 1, EXPONENT_FLOAT_TEST));
 	tests.push_back(new ParserTest("./tests/exponentFloatTests/2.txt", 1, EXPONENT_FLOAT_TEST));
 	tests.push_back(new ParserTest("./tests/exponentFloatTests/3.txt", 3, EXPONENT_FLOAT_TEST));
+	tests.push_back(new ParserTest("./tests/floatNumberTests/1.txt", 4, FLOATNUMBER_TEST));
 	bool success=true;
 	for (auto test:tests)
 		if (!test->test()) success=false;

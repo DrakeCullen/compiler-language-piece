@@ -15,4 +15,7 @@ class Parser {
 	bool exponentFloat(Tokenizer &t);
 	bool factor(Tokenizer &t);
 	bool mExpression(Tokenizer &t);
+	bool floatNumber(Tokenizer &t);
+	bool integer(Tokenizer &t);
+	bool u_expr(Tokenizer &t);
 };

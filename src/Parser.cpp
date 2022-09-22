@@ -91,3 +91,34 @@ bool Parser::mExpression(Tokenizer &t) {
     }
     return t.error("Expected a factor");
 }
+
+// floatnumber ::= pointfloat | exponentfloat
+bool Parser::floatNumber(Tokenizer &t){
+    //Token token = t.peek();
+    Tokenizer temp = t;
+    if (exponentFloat(temp) || pointFloat(temp)) {
+        t = temp;
+        return true;
+    }
+    return t.error("Expected a pointFloat or exponentFloat");
+}
+// integer ::= floatnumber | hexinteger
+bool Parser::integer(Tokenizer &t) {
+    Token token = t.peek();
+    if (floatNumber(t) || token.type == HEXDIGIT) { //is hexdigit is integer?
+        //t.next();
+        return true;
+    }
+    return t.error("Expected floatNumber or Hexdigit part");
+}
+
+// Unary expression
+bool Parser::u_expr(Tokenizer &t){
+    Token token = t.peek();
+    if(token.type == A_OPERATOR){
+        t.next();
+        if(u_expr(t))
+            return true;
+    }
+    return t.error("expected some shizzle");
+}

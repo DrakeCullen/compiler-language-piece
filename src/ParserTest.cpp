@@ -15,6 +15,7 @@ bool ParserTest::doTest() {
             if (type==POINTFLOAT_TEST && p->pointFloat(p->getTokenizer())) count++;
             if (type==EXPONENT_TEST && p->exponent(p->getTokenizer())) count++;
             if (type==EXPONENT_FLOAT_TEST && p->exponentFloat(p->getTokenizer())) count++;
+            if (type==FLOATNUMBER_TEST && p->floatNumber(p->getTokenizer())) count++;
             i++;
         }
 		return count==numInstances;
