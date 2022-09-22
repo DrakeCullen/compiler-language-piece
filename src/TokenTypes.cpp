@@ -4,7 +4,7 @@
 using namespace std;
 
 enum TokenType {KEYWORD, DOT, STRING, AND, OR, NOT, HEXDIGIT, VARIABLE,
-	 			INTPART, E, M_OPERATOR, A_OPERATOR, COMP_OPERATOR,
+	 			INTPART, E, M_OPERATOR, A_OPERATOR, COMP_OPERATOR, IF, ELSE,
                 UNRECOGNIZED, END_OF_TEXT };
 
 string tokenString(TokenType t) {
@@ -18,6 +18,8 @@ string tokenString(TokenType t) {
         case STRING: return "STRING";
         case INTPART: return "INTPART";
         case VARIABLE: return "VARIABLE";
+        case IF: return "IF";
+        case ELSE: return "ELSE";
         case E: return "E";
         case M_OPERATOR: return "Multipy_OPERATOR";
         case A_OPERATOR: return "Add_OPERATOR";

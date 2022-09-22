@@ -8,7 +8,7 @@
 using namespace std;
 
 enum TokenType {KEYWORD, DOT, STRING, AND, OR, NOT, HEXDIGIT, VARIABLE,
-	 			INTPART, E, M_OPERATOR, A_OPERATOR, COMP_OPERATOR,
+	 			INTPART, E, M_OPERATOR, A_OPERATOR, COMP_OPERATOR, IF, ELSE,
                 UNRECOGNIZED, END_OF_TEXT };
 
 string tokenString(TokenType t);

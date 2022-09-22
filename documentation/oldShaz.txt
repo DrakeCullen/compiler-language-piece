@@ -1,0 +1,54 @@
+// bool Parser::andExpression(Tokenizer &t)
+// {
+//     if (aExpression(t))
+//     {
+//         if (t.peek().type == AND) {
+//             t.next();
+//             if (andExpression(t)) {cout<<"FULL SHIT"<<endl; return true;}
+//             return t.error("Expected a_expression after AND");
+//         }
+//         cout<<"JUST A"<<endl;
+//         return true;
+//     }
+//     return t.error("Expected a_expr");
+// }
+
+// xor_expr ::= and_expr | xor_expr "^" and_expr
+//  bool xorExpression(Tokenizer &t){
+//      Tokenizer temp = t;
+//      if(andExpression(temp)){
+//          t = temp;
+//          return true;
+//      }
+//      temp = t;
+//      if(xorExpression(temp)){
+//          t = temp;
+//          if(t.next().type == XOR){
+//              if(and_expr(t)){
+//                  return true;
+//              }
+//              return t.error("Expected and_expr after XOR");
+//          }
+//          return t.error("Expected XOR after xor_expr");
+//      }
+//      return t.error("Expected and_expr");
+//  }
+
+// or_expr ::= xor_expr | or_expr "|" xor_expr
+/* bool orExpression(Tokenizer &t){
+    Tokenizer temp = t;
+    if (xorExpression(temp)){
+        t = temp;
+        return true;
+    }
+    if(orExpression(t)){
+        if(t.next().type == OR){
+            if(xorExpression(t)){
+                return true;
+            }
+            return t.error("Expected xor_expr after OR");
+        }
+        return t.error("Expected OR after or_expr");
+    }
+    return t.error("Expected xor_expr");
+} */

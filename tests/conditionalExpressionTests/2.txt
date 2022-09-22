@@ -1,0 +1,2 @@
+hi if 2 < 1 else 3 
+var2 if 3 < 2 else 3.4

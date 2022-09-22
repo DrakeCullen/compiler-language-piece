@@ -17,5 +17,13 @@ class Parser {
 	bool mExpression(Tokenizer &t);
 	bool floatNumber(Tokenizer &t);
 	bool integer(Tokenizer &t);
-	bool u_expr(Tokenizer &t);
+	bool aExpression(Tokenizer &t);
+	/* bool andExpression(Tokenizer &t);
+	bool xorExpression(Tokenizer &t);
+	bool orExpression(Tokenizer &t); */
+	bool comparison(Tokenizer &t);
+	bool andTest(Tokenizer &t);
+	bool notTest(Tokenizer &t);
+	bool orTest(Tokenizer &t);
+	bool conditionalExpression(Tokenizer &t);
 };

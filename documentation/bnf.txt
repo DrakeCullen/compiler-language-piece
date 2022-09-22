@@ -16,25 +16,17 @@ P <variable> ::= <letter > {<letter or digit>}
 P pointfloat ::= {intpart} fraction | {intpart} DOT
 P exponent ::= E a_operator intpart
 P exponentfloat ::= (intpart | pointfloat) exponent
+P integer ::= floatnumber | hexinteger
+P floatnumber ::= pointfloat | exponentfloat
+P m_expr ::=  factor m_operator m_expr 
 
-integer ::= floatnumber | hexinteger
-floatnumber ::= pointfloat | exponentfloat
+P a_expr ::= m_expr | a_expr "+" m_expr| a_expr "-" m_expr
+P comparison ::= a_expr { comp_operator a_expr }
+P or_test ::= and_test | or_test "or" and_test
+P and_test ::= not_test | and_test "and" not_test
+P not_test ::= comparison | "not" not_test
 
-1/4 factor ::= integer | floatnumber | string | variable | "(" expression ")"
-1/4 m_expr ::=  factor m_operator m_expr 
+(Stiil needs expression and parans) factor ::= integer | floatnumber | string | variable | "(" expression ")"
 
 expression ::=  conditional_expression
-expression_list ::= expression ( "," expression )* [","]
-expression_stmt ::= expression_list
 conditional_expression ::= or_test ["if" or_test "else" expression]
-or_test ::= and_test | or_test "or" and_test
-and_test ::= not_test | and_test "and" not_test
-not_test ::= comparison | "not" 
-comparison ::= or_expr { comp_operator or_expr }
-
-
-and_expr ::= a_expr | and_expr "&" a_expr
-xor_expr ::= and_expr | xor_expr "^" and_expr
-or_expr ::= xor_expr | or_expr "|" xor_expr
-
-a_expr ::= m_expr | a_expr "+" m_expr| a_expr "-" m_expr

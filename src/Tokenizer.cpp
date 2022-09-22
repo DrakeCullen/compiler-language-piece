@@ -103,8 +103,9 @@ Token Tokenizer::compOperator() {
 }
 
 bool Tokenizer::isKeyword() {
-    return (pos+1<text.size() && text.substr(pos,2)=="or") ||
-           (pos+2<text.size() && text.substr(pos,3)=="and" || text.substr(pos,3)=="not");
+    return ((pos+1<text.size() && (text.substr(pos,2)=="or" || text.substr(pos,2)=="if")) ||
+           (pos+2<text.size() && (text.substr(pos,3)=="and" || text.substr(pos,3)=="not")) ||
+           (pos+3<text.size() && text.substr(pos,4)=="else")); 
 }
 
 Token Tokenizer::intPart() {
@@ -119,6 +120,8 @@ Token Tokenizer::characterParser() {
         if (text.substr(pos,2)=="or") return Token(OR,"or");
         if (text.substr(pos,3)=="and") return Token(AND,"and");
         if (text.substr(pos,3)=="not") return Token(NOT,"not");
+        if (text.substr(pos,2)=="if") return Token(IF,"if");
+        if (text.substr(pos,4)=="else") return Token(ELSE,"else");
     } 
     unsigned newpos=pos;
     while (newpos<text.size() && isalnum(text[newpos])) newpos++;
