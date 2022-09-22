@@ -1,90 +1,118 @@
 #include "../include/Parser.h"
 
-Parser::Parser(string newFilename) { 
-    tokens=Tokenizer();
-    tokens.readFile(newFilename); 
+Parser::Parser(string newFilename)
+{
+    tokens = Tokenizer();
+    tokens.readFile(newFilename);
 }
 
-Token Parser::peek() { 
+Token Parser::peek()
+{
     return tokens.peek();
 }
 
-Token Parser::next() { 
+Token Parser::next()
+{
     return tokens.next();
 }
 
-Tokenizer& Parser::getTokenizer() { 
+Tokenizer &Parser::getTokenizer()
+{
     return tokens;
 }
 
-bool Parser::variable(Tokenizer &t) {
-    if (t.next().type == VARIABLE) return true;
+bool Parser::variable(Tokenizer &t)
+{
+    if (t.next().type == VARIABLE)
+        return true;
     return t.error("Expected a variable");
 }
 
-bool Parser::fraction(Tokenizer &t) {
-    if (t.next().type == DOT) {
-        if (t.next().type == INTPART) return true;
+bool Parser::fraction(Tokenizer &t)
+{
+    if (t.next().type == DOT)
+    {
+        if (t.next().type == INTPART)
+            return true;
         return t.error("Expected integer part after decimal point");
     }
     return t.error("Expected a decimal point");
 }
 
 // pointfloat ::= {intpart} fraction | {intpart} DOT
-bool Parser::pointFloat(Tokenizer &t) {
-    if (t.next().type == INTPART) {
+bool Parser::pointFloat(Tokenizer &t)
+{
+    if (t.next().type == INTPART)
+    {
         Tokenizer temp = t;
-        if (fraction(temp)) {t=temp; return true; }
-        if (t.next().type == DOT) return true;
+        if (fraction(temp))
+        {
+            t = temp;
+            return true;
+        }
+        if (t.next().type == DOT)
+            return true;
         return t.error("Expected a decimal point or faction part after integer part");
     }
     return t.error("Expected integer part");
 }
 
-bool Parser::exponent(Tokenizer &t) {
-    if (t.next().type == E) {
-        if (t.next().type != A_OPERATOR) return t.error("Expected an arithmetic operator");
-        if (t.next().type == INTPART) return true;
+bool Parser::exponent(Tokenizer &t)
+{
+    if (t.next().type == E)
+    {
+        if (t.next().type != A_OPERATOR)
+            return t.error("Expected an arithmetic operator");
+        if (t.next().type == INTPART)
+            return true;
         return t.error("Expected integer part after exponent operator");
     }
     return t.error("Expected an exponent operator");
 }
 
-//exponentfloat ::= (intpart | pointfloat) exponent
-bool Parser::exponentFloat(Tokenizer &t) {
+// exponentfloat ::= (intpart | pointfloat) exponent
+bool Parser::exponentFloat(Tokenizer &t)
+{
     Tokenizer temp = t;
-    if (pointFloat(temp)) {
+    if (pointFloat(temp))
+    {
         t = temp;
         return exponent(t);
     }
-    if (t.next().type == INTPART) return exponent(t);
+    if (t.next().type == INTPART)
+        return exponent(t);
     return t.error("Expected integer part or point float");
 }
 
-//factor ::= integer | floatnumber | variable | "(" expression ")"
-bool Parser::factor(Tokenizer &t) {
+// factor ::= integer  | variable | "(" expression ")"
+bool Parser::factor(Tokenizer &t)
+{
     Tokenizer temp = t;
-    /* if (integer(temp)) {
-        t = temp;
-        return true;
-    } */
-    /* if (floatNumber(temp)) {
-        t = temp;
-        return true;
-    } */
-    if (variable(temp)) {
+    if (integer(temp))
+    {
         t = temp;
         return true;
     }
+    temp = t;
+    if (variable(temp))
+    {
+        t = temp;
+        return true;
+    }
+    t = temp;
     // Add check for '(' expression ')'
     return t.error("Expected integer, floatnumber, variable, or (expression)");
 }
 
-//m_expr ::=  factor m_operator m_expr 
-bool Parser::mExpression(Tokenizer &t) {
-    if (factor(t)) {
-        if (t.next().type == M_OPERATOR) {
-            if (mExpression(t)) return true;
+// m_expr ::=  factor m_operator m_expr
+bool Parser::mExpression(Tokenizer &t)
+{
+    if (factor(t))
+    {
+        if (t.next().type == M_OPERATOR)
+        {
+            if (mExpression(t))
+                return true;
             return t.error("Expected a m_expression after m_operator");
         }
         return true;
@@ -93,31 +121,86 @@ bool Parser::mExpression(Tokenizer &t) {
 }
 
 // floatnumber ::= pointfloat | exponentfloat
-bool Parser::floatNumber(Tokenizer &t){
-    //Token token = t.peek();
+bool Parser::floatNumber(Tokenizer &t)
+{
     Tokenizer temp = t;
-    if (exponentFloat(temp)) {
+    if (exponentFloat(temp))
+    {
         t = temp;
         return true;
     }
-    temp = t;
-    if (pointFloat(temp)){
-        t = temp;
+    if (pointFloat(t))
         return true;
-    }
     return t.error("Expected a pointFloat or exponentFloat");
 }
-// integer ::= floatnumber | hexinteger
-bool Parser::integer(Tokenizer &t) {
-    Tokenizer temp = t;
-    if (floatNumber(temp) ) { //is hexdigit is integer?
-        t = temp;
-        return true;
-    }
-    Token token = t.peek();
-    if (token.type == HEXDIGIT){
+// integer ::= floatnumber | hexinteger | intpart    ---- added intpart
+bool Parser::integer(Tokenizer &t)
+{
+    if (t.peek().type == HEXDIGIT)
+    {
         t.next();
         return true;
     }
+    Tokenizer temp = t;
+    if (floatNumber(temp))
+    {
+        t = temp;
+        return true;
+    }
+    if (t.next().type == INTPART)
+        return true;
+
     return t.error("Expected floatNumber or Hexdigit part");
 }
+
+
+
+// and_expr ::= a_expr | and_expr "&" a_expr
+
+// bool and_expr(Tokenizer &t){
+//     Tokenizer temp = t;
+//     if (a_expr(temp)){
+//         t = temp;
+//         return true;
+//     }
+//     temp = t;
+//     if(and_expr(temp)){
+//         t = temp;
+//         if(t.next().type == AND){
+//             if(a_expr(t)){
+//                 return true;
+//             }
+//             return t.error("Expected a_expr after AND");
+//         }
+//         return t.error("Expected AND after and_expr");
+//     }
+//     return t.error("Expected a_expr");
+// }
+
+// xor_expr ::= and_expr | xor_expr "^" and_expr
+// or_expr ::= xor_expr | or_expr "|" xor_expr
+
+// conditional_expression ::= or_test ["if" or_test "else" expression]
+// bool conditionalExpression(Tokenizer &t){
+//     if(orTest(t)){
+//         if(t.next().type == IF){
+//             if(orTest(t)){
+//                 if(t.next().type == ELSE){
+//                     if(expression(t)){
+//                         return true;
+//                     }
+//                     return t.error("Expected expression after else");
+//                 }
+//                 return t.error("Expected else after or_test");
+//             }
+//             return t.error("Expected or_test after if");
+//         }
+//         return true;
+//     }
+//     return t.error("Expected or_test");
+// }
+
+
+// expression ::=  conditional_expression
+
+// expression_list ::= expression ( "," expression )* [","]

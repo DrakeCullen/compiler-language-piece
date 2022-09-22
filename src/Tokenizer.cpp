@@ -56,7 +56,7 @@ Token Tokenizer::peek() {
         if (pos+1 < text.size() && text[pos] == '/' && text[pos+1]=='/') return Token(M_OPERATOR,text.substr(pos,2));
         else return Token(M_OPERATOR,text.substr(pos,1));
     if (c=='+' || c=='-') return Token(A_OPERATOR,text.substr(pos,1));
-    if (isalpha(c)) return characterParser();
+    if (isalpha(c) || (isdigit(c) && pos + 1 < text.size() && (text[pos+1] == 'x' || text[pos+1] == 'X'))) return characterParser();
     if (isdigit(c)) {
         unsigned newpos=pos;
         while(newpos<text.size() && isdigit(text[newpos])) newpos++;

@@ -16,6 +16,9 @@ bool ParserTest::doTest() {
             if (type==EXPONENT_TEST && p->exponent(p->getTokenizer())) count++;
             if (type==EXPONENT_FLOAT_TEST && p->exponentFloat(p->getTokenizer())) count++;
             if (type==FLOATNUMBER_TEST && p->floatNumber(p->getTokenizer())) count++;
+            if (type==INTEGER_TEST && p->integer(p->getTokenizer())) count++;
+            if (type==FACTOR_TEST && p->factor(p->getTokenizer())) count++;
+            if (type==M_EXPRESSION_TEST && p->mExpression(p->getTokenizer())) count++;
             i++;
         }
 		return count==numInstances;
