@@ -96,7 +96,12 @@ bool Parser::mExpression(Tokenizer &t) {
 bool Parser::floatNumber(Tokenizer &t){
     //Token token = t.peek();
     Tokenizer temp = t;
-    if (exponentFloat(temp) || pointFloat(temp)) {
+    if (exponentFloat(temp)) {
+        t = temp;
+        return true;
+    }
+    temp = t;
+    if (pointFloat(temp)){
         t = temp;
         return true;
     }
@@ -104,21 +109,15 @@ bool Parser::floatNumber(Tokenizer &t){
 }
 // integer ::= floatnumber | hexinteger
 bool Parser::integer(Tokenizer &t) {
+    Tokenizer temp = t;
+    if (floatNumber(temp) ) { //is hexdigit is integer?
+        t = temp;
+        return true;
+    }
     Token token = t.peek();
-    if (floatNumber(t) || token.type == HEXDIGIT) { //is hexdigit is integer?
-        //t.next();
+    if (token.type == HEXDIGIT){
+        t.next();
         return true;
     }
     return t.error("Expected floatNumber or Hexdigit part");
-}
-
-// Unary expression
-bool Parser::u_expr(Tokenizer &t){
-    Token token = t.peek();
-    if(token.type == A_OPERATOR){
-        t.next();
-        if(u_expr(t))
-            return true;
-    }
-    return t.error("expected some shizzle");
 }

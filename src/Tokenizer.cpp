@@ -132,7 +132,7 @@ Token Tokenizer::characterParser() {
                 validHex=false;
                 break;
             }
-        if (validHex) return Token(HEXDIGIT,value);
+        if (validHex) return Token(HEXDIGIT,value); // Hexinteger
     } 
     return Token(VARIABLE,value);
 }
