@@ -25,8 +25,8 @@ P comparison ::= a_expr { comp_operator a_expr }
 P or_test ::= and_test | or_test "or" and_test
 P and_test ::= not_test | and_test "and" not_test
 P not_test ::= comparison | "not" not_test
+P conditional_expression ::= or_test ["if" or_test "else" expression]
+
 
 (Stiil needs expression and parans) factor ::= integer | floatnumber | string | variable | "(" expression ")"
 
-expression ::=  conditional_expression
-conditional_expression ::= or_test ["if" or_test "else" expression]

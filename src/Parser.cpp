@@ -84,7 +84,7 @@ bool Parser::exponentFloat(Tokenizer &t)
     return t.error("Expected integer part or point float");
 }
 
-// factor ::= integer  | variable | "(" expression ")"
+// factor ::= integer  | variable | "(" conditionalExpression ")"
 bool Parser::factor(Tokenizer &t)
 {
     Tokenizer temp = t;
@@ -99,8 +99,15 @@ bool Parser::factor(Tokenizer &t)
         t = temp;
         return true;
     }
-    t = temp;
-    // Add check for '(' expression ')'
+    if (t.next().type == LEFT_PAREN)
+    {
+        if (conditionalExpression(t))
+        {
+            if (t.next().type == RIGHT_PAREN) return true;
+            return t.error("Expected a right parenthesis");
+        }
+        return t.error("Expected an expression");
+    }
     return t.error("Expected integer, floatnumber, variable, or (expression)");
 }
 
@@ -196,10 +203,12 @@ bool Parser::notTest(Tokenizer &t)
     if (t.peek().type == NOT)
     {
         t.next();
-        if (notTest(t)) return true;
+        if (notTest(t))
+            return true;
         return t.error("Expected a notTest after NOT");
     }
-    if (comparison(t)) return true;
+    if (comparison(t))
+        return true;
     return t.error("Expected comparison or not, i'm soft and frictionless");
 }
 
@@ -210,10 +219,12 @@ bool Parser::andTest(Tokenizer &t)
     if (notTest(t))
     {
         if (t.peek().type == AND)
-        {   
+        {
             t.next();
-            if (andTest(t)) return true;
-            else return t.error("Expected not_test after and");
+            if (andTest(t))
+                return true;
+            else
+                return t.error("Expected not_test after and");
         }
         return true;
     }
@@ -229,8 +240,10 @@ bool Parser::orTest(Tokenizer &t)
         if (t.peek().type == OR)
         {
             t.next();
-            if (orTest(t)) return true;
-            else return t.error("Expected and_test after or");
+            if (orTest(t))
+                return true;
+            else
+                return t.error("Expected and_test after or");
         }
         return true;
     }
@@ -238,21 +251,29 @@ bool Parser::orTest(Tokenizer &t)
 }
 
 // var2 if a > b else c + 3 if d > e else f
-//conditional_expression ::= or_test ["if" or_test "else" conditional_expression]
-//v2 conditional_expression ::= or_test ["if" or_test "else" conditional_expression]
-bool Parser::conditionalExpression(Tokenizer &t){
-    if(orTest(t)){
-        if(t.next().type == IF){
-            if(orTest(t)){
-                if(t.next().type == ELSE){
-                    if(orTest(t))return true;
+// conditional_expression ::= or_test ["if" or_test "else" conditional_expression]
+// v2 conditional_expression ::= or_test ["if" or_test "else" conditional_expression]
+bool Parser::conditionalExpression(Tokenizer &t)
+{
+    if (orTest(t))
+    {
+        if (t.peek().type == IF)
+        {
+            t.next();
+            if (orTest(t))
+            {
+                if (t.next().type == ELSE)
+                {
+                    if (orTest(t))
+                        return true;
                     return t.error("Expected expression after else");
                 }
                 return t.error("Expected else after or_test");
             }
             return t.error("Expected or_test after if");
         }
-        return t.error("Expected if after or_test");
+        return true; // Conditional expression no longer has to be "if else", this may have ramifications later
+        //return t.error("Expected if after or_test");
     }
     return t.error("Expected or_test");
 }

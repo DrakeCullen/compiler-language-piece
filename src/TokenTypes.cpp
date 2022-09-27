@@ -5,7 +5,7 @@ using namespace std;
 
 enum TokenType {KEYWORD, DOT, STRING, AND, OR, NOT, HEXDIGIT, VARIABLE,
 	 			INTPART, E, M_OPERATOR, A_OPERATOR, COMP_OPERATOR, IF, ELSE,
-                UNRECOGNIZED, END_OF_TEXT };
+                UNRECOGNIZED, END_OF_TEXT, LEFT_PAREN, RIGHT_PAREN };
 
 string tokenString(TokenType t) {
     switch(t) {
@@ -26,6 +26,8 @@ string tokenString(TokenType t) {
         case COMP_OPERATOR: return "COMP_OPERATOR";
         case UNRECOGNIZED: return "UNRECOGNIZED";
         case END_OF_TEXT: return "END_OF_TEXT";
+        case LEFT_PAREN: return "LEFT_PAREN";
+        case RIGHT_PAREN: return "RIGHT_PAREN";
         default: return "UNKNOWN";
     }
 }

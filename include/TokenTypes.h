@@ -9,6 +9,6 @@ using namespace std;
 
 enum TokenType {KEYWORD, DOT, STRING, AND, OR, NOT, HEXDIGIT, VARIABLE,
 	 			INTPART, E, M_OPERATOR, A_OPERATOR, COMP_OPERATOR, IF, ELSE,
-                UNRECOGNIZED, END_OF_TEXT };
+                UNRECOGNIZED, END_OF_TEXT, LEFT_PAREN, RIGHT_PAREN };
 
 string tokenString(TokenType t);

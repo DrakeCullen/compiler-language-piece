@@ -52,6 +52,8 @@ Token Tokenizer::peek() {
     if (c=='\'') return getString();
     if (c=='<' || c=='>' || c=='=' || c=='!') return compOperator();
     if (c=='.') return Token(DOT,text.substr(pos,1));
+    if (c=='(') return Token(LEFT_PAREN,text.substr(pos,1));
+    if (c==')') return Token(RIGHT_PAREN,text.substr(pos,1));
     if (c=='*' || c=='/' || c=='%' ) 
         if (pos+1 < text.size() && text[pos] == '/' && text[pos+1]=='/') return Token(M_OPERATOR,text.substr(pos,2));
         else return Token(M_OPERATOR,text.substr(pos,1));

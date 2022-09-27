@@ -17,7 +17,7 @@ void addTokenizerTests(vector<TestCase *> &tests)
 	tests.push_back(new TokenizerTest("or and not or if else", false));
 	tests.push_back(new TokenizerTest("123 53.", false));
 	tests.push_back(new TokenizerTest("* / // % */", false));
-	tests.push_back(new TokenizerTest("+ - +-", false));
+	tests.push_back(new TokenizerTest("+ - +- ( )", false));
 	tests.push_back(new TokenizerTest("E 0x4932 0X9483 0xfEf or and not var", false));
 	tests.push_back(new TokenizerTest("if 0x4932 0X9483 else or and not var", false));
 }
@@ -25,7 +25,7 @@ void addTokenizerTests(vector<TestCase *> &tests)
 bool runTests()
 {
 	vector<TestCase *> tests;
-	addTokenizerTests(tests);
+	//addTokenizerTests(tests);
 
    // NOTE DO WE WANT STRINGS TO BE A PART OF ALL THE EXPRESSION STUFF?
    // IMPLEMENT PARANTHESE EXPRESSIONS
@@ -51,6 +51,7 @@ bool runTests()
 	tests.push_back(new ParserTest("./tests/factorTests/1.txt", 3, FACTOR_TEST));
 	tests.push_back(new ParserTest("./tests/factorTests/2.txt", 3, FACTOR_TEST));
 	tests.push_back(new ParserTest("./tests/factorTests/3.txt", 4, FACTOR_TEST));
+	tests.push_back(new ParserTest("./tests/factorTests/4.txt", 2, FACTOR_TEST));
 	tests.push_back(new ParserTest("./tests/mExpressionTests/1.txt", 1, M_EXPRESSION_TEST));
 	tests.push_back(new ParserTest("./tests/mExpressionTests/2.txt", 1, M_EXPRESSION_TEST));
 	tests.push_back(new ParserTest("./tests/mExpressionTests/3.txt", 2, M_EXPRESSION_TEST));
@@ -72,7 +73,7 @@ bool runTests()
 
 	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/1.txt", 1, CONDITIONAL_EXPRESSION_TEST));
 	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/2.txt", 2, CONDITIONAL_EXPRESSION_TEST));
-	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/3.txt", 1, CONDITIONAL_EXPRESSION_TEST));
+	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/3.txt", 2, CONDITIONAL_EXPRESSION_TEST));
 
 
 
