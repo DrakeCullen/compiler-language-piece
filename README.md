@@ -23,6 +23,6 @@ make run
 
 ## Here are images of our test cases:
 
-![alt text](https://github.com/DrakeCullen/compiler-language-piece/imgs/token_tests1.png)
+![alt text](./imgs/token_tests1.png)
 
-![alt text](https://github.com/DrakeCullen/compiler-language-piece/imgs/token_tests2.png)
+![alt text](./imgs/token_tests2.png)
