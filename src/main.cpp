@@ -25,7 +25,7 @@ void addTokenizerTests(vector<TestCase *> &tests)
 bool runTests()
 {
 	vector<TestCase *> tests;
-	//addTokenizerTests(tests);
+	addTokenizerTests(tests);
 
    // NOTE DO WE WANT STRINGS TO BE A PART OF ALL THE EXPRESSION STUFF?
    // IMPLEMENT PARANTHESE EXPRESSIONS
