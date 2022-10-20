@@ -54,7 +54,7 @@ bool runTests()
 	tests.push_back(new ParserTest("./tests/factorTests/4.txt", 2, FACTOR_TEST));
 	tests.push_back(new ParserTest("./tests/mExpressionTests/1.txt", 1, M_EXPRESSION_TEST));
 	tests.push_back(new ParserTest("./tests/mExpressionTests/2.txt", 1, M_EXPRESSION_TEST));
-	tests.push_back(new ParserTest("./tests/mExpressionTests/3.txt", 2, M_EXPRESSION_TEST));
+	tests.push_back(new ParserTest("./tests/mExpressionTests/3.txt", 3, M_EXPRESSION_TEST));
 	tests.push_back(new ParserTest("./tests/aExpressionTests/1.txt", 1, A_EXPRESSION_TEST));
 	tests.push_back(new ParserTest("./tests/aExpressionTests/2.txt", 2, A_EXPRESSION_TEST));
 	tests.push_back(new ParserTest("./tests/aExpressionTests/3.txt", 3, A_EXPRESSION_TEST));
@@ -70,13 +70,9 @@ bool runTests()
 	tests.push_back(new ParserTest("./tests/orTests/1.txt", 1, OR_TEST));
 	tests.push_back(new ParserTest("./tests/orTests/2.txt", 1, OR_TEST));
 	tests.push_back(new ParserTest("./tests/orTests/3.txt", 2, OR_TEST));
-
 	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/1.txt", 1, CONDITIONAL_EXPRESSION_TEST));
 	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/2.txt", 2, CONDITIONAL_EXPRESSION_TEST));
 	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/3.txt", 2, CONDITIONAL_EXPRESSION_TEST));
-
-
-
 
 	bool success = true;
 	for (auto test : tests)
