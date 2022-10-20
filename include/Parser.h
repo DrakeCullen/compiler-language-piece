@@ -1,5 +1,6 @@
 #pragma once
 #include "Tokenizer.h"
+#include<math.h>
 
 class Parser {
 	Tokenizer tokens;
@@ -8,22 +9,19 @@ class Parser {
 	Token next();
 	Tokenizer& getTokenizer();
 	Parser(string newFilename);	
-	bool variable(Tokenizer &t);
-	bool fraction(Tokenizer &t);
-	bool pointFloat(Tokenizer &t);
-	bool exponent(Tokenizer &t);
-	bool exponentFloat(Tokenizer &t);
-	bool factor(Tokenizer &t);
-	bool mExpression(Tokenizer &t);
-	bool floatNumber(Tokenizer &t);
-	bool integer(Tokenizer &t);
-	bool aExpression(Tokenizer &t);
-	/* bool andExpression(Tokenizer &t);
-	bool xorExpression(Tokenizer &t);
-	bool orExpression(Tokenizer &t); */
-	bool comparison(Tokenizer &t);
-	bool andTest(Tokenizer &t);
-	bool notTest(Tokenizer &t);
-	bool orTest(Tokenizer &t);
-	bool conditionalExpression(Tokenizer &t);
+	Result variable(Tokenizer &t);
+	Result fraction(Tokenizer &t);
+	Result pointFloat(Tokenizer &t);
+	Result exponent(Tokenizer &t);
+	Result exponentFloat(Tokenizer &t);
+	Result factor(Tokenizer &t);
+	Result mExpression(Tokenizer &t);
+	Result floatNumber(Tokenizer &t);
+	Result integer(Tokenizer &t);
+	Result aExpression(Tokenizer &t);
+	Result comparison(Tokenizer &t);
+	Result andTest(Tokenizer &t);
+	Result notTest(Tokenizer &t);
+	Result orTest(Tokenizer &t);
+	Result conditionalExpression(Tokenizer &t);
 };

@@ -9,6 +9,8 @@ using namespace std;
 
 enum TokenType {KEYWORD, DOT, STRING, AND, OR, NOT, HEXDIGIT, VARIABLE,
 	 			INTPART, E, M_OPERATOR, A_OPERATOR, COMP_OPERATOR, IF, ELSE,
-                UNRECOGNIZED, END_OF_TEXT, LEFT_PAREN, RIGHT_PAREN };
+                UNRECOGNIZED, END_OF_TEXT, LEFT_PAREN, RIGHT_PAREN,
+// Parsed Tokens
+                P_EXPONENT_FLOAT, P_POINT_FLOAT, P_EXPONENT, P_CONDITIONAL_EXPRESSION };
 
 string tokenString(TokenType t);

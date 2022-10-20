@@ -7,14 +7,14 @@ Tokenizer::Tokenizer() {
     text="";
 }
 
-bool Tokenizer::error(string message) {
-		//cerr << filename<<':'<<linepos<<':' << message << endl;	
-		return false;
+Result Tokenizer::error(string message) {
+        cerr << filename<<':'<<linepos<<':' << message << endl;		
+		return Result(false);
 }
 
-bool Tokenizer::message(string message) {
+Result Tokenizer::message(string message, nodePtr subtree=NULL) {
 		cout << filename<<':'<<linepos<<':' << message << ":"<< text.substr(pos,10) << endl;	
-		return true;
+		return Result(true,subtree);
 }
 
 void Tokenizer::readFile(string newFilename) {

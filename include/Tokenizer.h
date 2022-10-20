@@ -1,5 +1,6 @@
 #pragma once
 #include "Token.h"
+#include "Result.h"
 
 class Tokenizer {
     int linepos,charpos;
@@ -8,8 +9,8 @@ class Tokenizer {
 public:
     static string filename;
     Tokenizer();
-    bool error(string);
-	bool message(string );
+    Result error(string);
+	Result message(string ,nodePtr);
     void readFile(string);
     void setText(string newText="");
     Token next();
@@ -22,4 +23,5 @@ public:
     bool isKeyword();
     Token intPart();
     Token characterParser();
+    
 };
