@@ -16,14 +16,35 @@
 <br />
 
 
-## To run the program, run the following command in the terminal:
+## To run the program, run the following commands in the terminal:
 
 <br />
 
+Build the program:
 ```bash
 make
-make run
 ```
+
+Run tests:
+```bash
+make test
+```
+
+Run tests verbose:
+```bash
+make vtest
+```
+
+Print the Abstract Syntax Tree for a given file:
+```bash
+make run filename=<filename>
+```
+
+Example
+```bash
+make run filename=./tests/conditionalExpressionTests/3.txt
+```
+![alt text](./imgs/AST.png)
 
 
 <br />

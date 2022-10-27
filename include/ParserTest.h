@@ -8,11 +8,10 @@ enum testType {VARIABLE_TEST,FRACTION_TEST, POINTFLOAT_TEST, EXPONENT_TEST, EXPO
 class ParserTest:public TestCase {
 	private:
 		Parser *p;
-		bool shouldFail;
         int numInstances;
         testType type;
 	public:
-	ParserTest(string newFilename, int numInstances, testType type, bool newShouldFail=false);
+	ParserTest(string newFilename, int numInstances, testType type, bool verbose=false);
     bool doTest();
 	~ParserTest();
 };

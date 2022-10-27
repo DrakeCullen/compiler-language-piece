@@ -6,9 +6,11 @@ class Tokenizer {
     int linepos,charpos;
 	string text;
 	unsigned pos;
+    bool debug;
 public:
     static string filename;
     Tokenizer();
+    Tokenizer(bool newDebug);
     Result error(string);
 	Result message(string ,nodePtr);
     void readFile(string);

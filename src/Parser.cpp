@@ -7,6 +7,12 @@ Parser::Parser(string newFilename)
     tokens.readFile(newFilename);
 }
 
+Parser::Parser(string newFilename, bool debug)
+{
+    tokens = Tokenizer(debug);
+    tokens.readFile(newFilename);
+}
+
 Token Parser::peek()
 {
     return tokens.peek();

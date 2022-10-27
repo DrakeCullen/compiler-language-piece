@@ -3,6 +3,8 @@ CFLAGS  = -g -Wall
 
 TARGET ?= main.out
 
+VERBOSE ?= verbose
+
 SRC_DIRS ?= ./src
 
 SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
@@ -22,6 +24,12 @@ clean:
 	$(RM) $(TARGET) $(OBJS) $(DEPS)
 
 run: $(TARGET)
-	./$(TARGET)
+	./$(TARGET) $(filename)
+
+test: $(TARGET)
+	./$(TARGET) test
+
+vtest: $(TARGET)
+	./$(TARGET) test verbose
 
 -include $(DEPS)

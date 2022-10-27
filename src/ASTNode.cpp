@@ -38,8 +38,7 @@ unsigned ASTNode::size()
 
 void ASTNode::print(ostream &out, int depth)
 {
-    out << setw(depth) << setfill(' ') << ' ';
-    out << token << endl;
-    for (auto child : children)
-        child->print(out, depth + 1);
+    out << '+' << setw(depth) << setfill('-') <<'-';
+	out << token << endl;
+	for (auto child:children) child->print(out,depth+1);
 }

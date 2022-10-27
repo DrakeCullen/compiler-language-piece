@@ -8,7 +8,8 @@ class Parser {
 	Token peek();
 	Token next();
 	Tokenizer& getTokenizer();
-	Parser(string newFilename);	
+	Parser(string newFilename);
+	Parser(string newFilename,bool debug);	
 	Result variable(Tokenizer &t);
 	Result fraction(Tokenizer &t);
 	Result pointFloat(Tokenizer &t);

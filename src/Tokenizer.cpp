@@ -5,16 +5,24 @@ string Tokenizer::filename="";
 
 Tokenizer::Tokenizer() {
     text="";
+    debug=false;
+}
+
+Tokenizer::Tokenizer(bool newDebug) {
+    text="";
+    debug=newDebug;
 }
 
 Result Tokenizer::error(string message) {
+    if (debug) 
         cerr << filename<<':'<<linepos<<':' << message << endl;		
-		return Result(false);
+	return Result(false);
 }
 
 Result Tokenizer::message(string message, nodePtr subtree=NULL) {
-		cout << filename<<':'<<linepos<<':' << message << ":"<< text.substr(pos,10) << endl;	
-		return Result(true,subtree);
+	if (debug)	
+        cout << filename<<':'<<linepos<<':' << message << ":"<< text.substr(pos,10) << endl;	
+	return Result(true,subtree);
 }
 
 void Tokenizer::readFile(string newFilename) {
