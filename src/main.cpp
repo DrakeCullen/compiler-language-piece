@@ -1,28 +1,33 @@
 #include "../include/TokenizerTest.h"
 #include "../include/ParserTest.h"
+#include "../include/SymbolTable.h"
 
-bool runTests(bool verbose=false);
+bool runTests(bool verbose = false);
 void addTokenizerTests(vector<TestCase *> &tests);
 
 int main(int argc, char **argv)
 {
-	
+
 	if (argc < 2)
 		cout << "Expecting 'test' or input file name as argument." << endl;
 	else if (argc == 2 && string(argv[1]) == "test")
 		runTests();
-	else if (argc == 3 && string(argv[1]) == "test" && string(argv[2]) == "verbose") 
+	else if (argc == 3 && string(argv[1]) == "test" && string(argv[2]) == "verbose")
 		runTests(true);
 	else
 	{
 		Parser p(argv[1], false);
-		Result result=p.conditionalExpression(p.getTokenizer());
-		if (result.success) {
-			cout << "Parse Tree "<<endl;
+		Result result = p.conditionalExpression(p.getTokenizer());
+		if (result.success)
+		{
+			cout << "Parse Tree " << endl;
 			result.subtree->print(cout);
 		}
-		else 
+		else
 			cout << "Parse failed." << endl;
+		//SymbolTable st;
+		//st.populate(result.subtree);
+		//cout << st << endl;
 	}
 
 	return 0;
@@ -45,8 +50,6 @@ bool runTests(bool verbose)
 	vector<TestCase *> tests;
 	addTokenizerTests(tests);
 
-	// NOTE DO WE WANT STRINGS TO BE A PART OF ALL THE EXPRESSION STUFF?
-	// IMPLEMENT PARANTHESE EXPRESSIONS
 	tests.push_back(new ParserTest("./tests/variableTests/1.txt", 3, VARIABLE_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/variableTests/2.txt", 1, VARIABLE_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/variableTests/3.txt", 4, VARIABLE_TEST, verbose));
@@ -69,7 +72,6 @@ bool runTests(bool verbose)
 	tests.push_back(new ParserTest("./tests/factorTests/1.txt", 3, FACTOR_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/factorTests/2.txt", 3, FACTOR_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/factorTests/3.txt", 4, FACTOR_TEST, verbose));
-	tests.push_back(new ParserTest("./tests/factorTests/4.txt", 2, FACTOR_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/mExpressionTests/1.txt", 1, M_EXPRESSION_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/mExpressionTests/2.txt", 1, M_EXPRESSION_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/mExpressionTests/3.txt", 3, M_EXPRESSION_TEST, verbose));
@@ -88,10 +90,10 @@ bool runTests(bool verbose)
 	tests.push_back(new ParserTest("./tests/andTests/3.txt", 2, AND_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/orTests/1.txt", 1, OR_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/orTests/2.txt", 1, OR_TEST, verbose));
-	tests.push_back(new ParserTest("./tests/orTests/3.txt", 2, OR_TEST, verbose));
+	tests.push_back(new ParserTest("./tests/orTests/3.txt", 1, OR_TEST, verbose));
 	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/1.txt", 1, CONDITIONAL_EXPRESSION_TEST, verbose));
-	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/2.txt", 2, CONDITIONAL_EXPRESSION_TEST, verbose));
-	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/3.txt", 2, CONDITIONAL_EXPRESSION_TEST, verbose));
+	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/2.txt", 1, CONDITIONAL_EXPRESSION_TEST, verbose));
+	tests.push_back(new ParserTest("./tests/conditionalExpressionTests/3.txt", 1, CONDITIONAL_EXPRESSION_TEST, verbose));
 
 	bool success = true;
 	for (auto test : tests)

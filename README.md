@@ -16,6 +16,10 @@
     include/ : ASTNode.h
     src/ : ASTNode.cpp
 
+## Relevant Files for Symbol Table:
+    include/ : SymbolTableEntry.h, SymbolTable.h
+    src/ : SymbolTableEntry.cpp, SymbolTable.cpp
+
 <br />
 
 
@@ -50,6 +54,12 @@ make run filename=./tests/conditionalExpressionTests/3.txt
 ![alt text](./imgs/AST.png)
 
 
+## Here are the images of our Symbol Table:
+```bash
+make run filename=tests/AssignmentTests/1.txt 
+```
+![alt text](./imgs/SymbolTable.png)
+
 <br />
 
 ## Here are images of our tokenizer test cases:
@@ -68,3 +78,4 @@ There are 44 tests, we only provided an image of one conditional test for brevit
 
 All Tests Passed:
 ![alt text](./imgs/parser-passed.png)
+

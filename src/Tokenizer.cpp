@@ -58,7 +58,13 @@ Token Tokenizer::peek() {
     if (pos >= text.size()) return Token(END_OF_TEXT,"");
     char c=text[pos];
     if (c=='\'') return getString();
-    if (c=='<' || c=='>' || c=='=' || c=='!') return compOperator();
+    if (c=='<' || c=='>') return compOperator();
+    if (c=='=' || c=='!') {
+        if (pos+1 < text.size() && text[pos+1]=='=') 
+            return Token(COMP_OPERATOR,text.substr(pos,2));
+        else if (c != '!')
+            return Token(EQUAL, text.substr(pos,1));
+    }
     if (c=='.') return Token(DOT,text.substr(pos,1));
     if (c=='(') return Token(LEFT_PAREN,text.substr(pos,1));
     if (c==')') return Token(RIGHT_PAREN,text.substr(pos,1));
